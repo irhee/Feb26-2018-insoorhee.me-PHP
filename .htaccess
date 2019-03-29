@@ -1,0 +1,12 @@
+# Turn Rewrite Engine On
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite for index.php to shoutbox
+RewriteRule ^shoutbox$ index.php [NC,L]
+
+# Rewrite for about.php
+RewriteRule ^about$ about.php [NC,L]
+

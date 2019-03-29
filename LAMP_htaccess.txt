@@ -1,0 +1,68 @@
+apt-get update
+apt-get install apache2
+
+--test your server by entering your ip on browser
+
+--install mysql
+apt-get install mysql-server
+
+--install php
+sudo apt-get install php libapache2-mod-php php-mcrypt php-mysql
+
+edit conf file to move .php first
+sudo nano /etc/apache2/mod-enabled/dir.conf
+
+restart server
+sudo systemctl restart apache2
+
+cd /var/www/html
+
+sudo nano /var/www/html/info.php
+
+apt-get install phpmyadmin
+set and enter password
+
+service apache2 restart
+
+sudo nano /etc/apache2/apache2.conf
+Then add the following line to the end of the file:
+Include /etc/phpmyadmin/apache.conf
+Then restart apache:
+/etc/init.d/apache2 restart
+
+cleaning up URL
+text -> to file ".htaccess" 
+# Turn Rewrite Engine On
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite for index.php to shoutbox
+RewriteRule ^shoutbox$ index.php [NC]
+
+# Rewrite for about.php
+RewriteRule ^about$ about.php [NC]
+
+-----------------------------------------
+
+sudo nano /etc/apache2/apache2.conf
+<Directory /var/www/>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+</Directory>
+
+sudo nano /etc/apache2/sites-available/000-default.conf
+<Directory /var/www/>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Require all granted
+</Directory>
+
+sudo systemctl restart apache2
+
+----------------------------
+Module rewrite 
+sudo a2enmod rewrite
+sudo service apache2 restart
